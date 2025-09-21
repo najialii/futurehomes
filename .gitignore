@@ -34,7 +34,7 @@ out
 *.sw?
 
 # Ignore ONLY videos & images in public
-/public/*.mp4
+#/public/*.mp4
 /public/*.mov
 /public/*.avi
 /public/*.mkv
