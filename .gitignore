@@ -40,9 +40,9 @@ out
 /public/*.mkv
 /public/*.webm
 
-/public/*.png
-/public/*.jpg
-/public/*.jpeg
+# /public/*.png
+# /public/*.jpg
+# /public/*.jpeg
 /public/*.gif
 # /public/*.svg
 /public/*.webp
