@@ -34,3 +34,19 @@ out
 *.sw?
 
 # Ignore ONLY videos & images in public
+/public/*.mp4
+/public/*.mov
+/public/*.avi
+/public/*.mkv
+/public/*.webm
+
+/public/*.png
+/public/*.jpg
+/public/*.jpeg
+/public/*.gif
+# /public/*.svg
+/public/*.webp
+/public/*.bmp
+
+# Keep index.html and other non-media files
+!/public/index.html
