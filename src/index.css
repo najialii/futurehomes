@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+
+@layer base {
+  @font-face {
+    font-family: 'elmassri';
+    src: url('../src/assets/fonts/ElMessiri-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+}
+
+
+
+@theme {
+    --color-future: #4bb7c3;
+  }
+
+
+  body {
+    font-family: 'elmassri', sans-serif;
+  }

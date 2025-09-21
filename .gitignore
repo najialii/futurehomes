@@ -1,0 +1,52 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Node modules
+node_modules
+
+# Build outputs
+dist
+dist-ssr
+build
+.next
+out
+
+# Local env files
+*.local
+.env
+.env.*
+
+# Editor stuff
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Ignore ONLY videos & images in public
+/public/*.mp4
+/public/*.mov
+/public/*.avi
+/public/*.mkv
+/public/*.webm
+
+/public/*.png
+/public/*.jpg
+/public/*.jpeg
+/public/*.gif
+/public/*.svg
+/public/*.webp
+/public/*.bmp
+
+# Keep index.html and other non-media files
+!/public/index.html
