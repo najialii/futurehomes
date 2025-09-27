@@ -44,11 +44,9 @@ function Contact() {
 
   return (
     <div className="font-elmassri" dir="rtl">
-      {/* SECTION 1: Contact Information and Map */}
       <section id="contact-info" className="">
         <div className="max-w-7xl mx-auto  ">
           
-          {/* Section Header */}
           <div className="relative h-[50vh] flex items-center justify-center bg-gray-900 text-white">
               <div className="absolute inset-0 bg-cover bg-center opacity-40" style={{ backgroundImage: "url('/path-to-your-about-us-hero-image.jpg')" }}></div>
               <div className="relative text-center px-4">
@@ -79,7 +77,7 @@ function Contact() {
             viewport={{ once: true, amount: 0.3 }}
             variants={containerVariants}
           >
-            {/* Contact Information */}
+
             <motion.div variants={itemVariants}>
               <ContactInfoCard title="معلومات الاتصال">
                 <div className="space-y-4 text-gray-600">
@@ -108,7 +106,6 @@ function Contact() {
               </ContactInfoCard>
             </motion.div>
 
-            {/* Google Maps Embed */}
             <motion.div variants={itemVariants}>
               <ContactInfoCard title="موقعنا">
                 <div className="w-full h-80 rounded-lg overflow-hidden">

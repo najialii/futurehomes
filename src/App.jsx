@@ -37,7 +37,6 @@ const Home = () => (
     <Hero />
     <Services />
     <Stats />
-    {/* <Projects /> */}
     <HomeProjectsSection />
     <Partners />
     <section id="cta" className="bg-white py-20 text-future font-elmassri" dir="rtl">

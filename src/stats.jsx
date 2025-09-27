@@ -4,10 +4,10 @@ import CountUp from "react-countup";
 import { motion } from "framer-motion";
 
 const stats = [
-  { value: 8, suffix: "+", label: "سنوات الخبرة" },
-  { value: 250, suffix: "+", label: "المشاريع المنجزة" },
-  { value: 1000, suffix: "+", label: "طاقم العمل" },
-  { value: 100, suffix: "+", label: "شركاء النجاح" },
+  { value: 13, suffix: "+", label: "سنوات الخبرة" },
+  { value: 87, suffix: "+", label: "المشاريع المنجزة" },
+  { value: 70, suffix: "+", label: "طاقم العمل" },
+  { value: 20, suffix: "+", label: "شركاء النجاح" },
 ];
 
 function Stats() {
