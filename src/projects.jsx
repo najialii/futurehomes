@@ -7,9 +7,9 @@ const externalProjects = [
     description: "تنفيذ وتصميم مشروع خارجي مميز يجمع بين الحداثة والعملية.",
     images: [
       "/projects/ksulman1.jpg",
-      "../public/projects/ksulman2.JPG",
-      "../public/projects/ksulman3.JPG",
-      "../public/projects/ksulman4.JPG",
+      "../projects/ksulman2.JPG",
+      "../projects/ksulman3.JPG",
+      "../projects/ksulman4.JPG",
     ],
   },
   {
@@ -17,10 +17,10 @@ const externalProjects = [
     description:
       "مشروع فيلا خارجية بتصميم فريد يبرز جمال الواجهات والمساحات الخارجية.",
     images: [
-      "../public/projects/t3awn1.JPG",
-      "../public/projects/t3awn2.JPG",
-      "../public/projects/t3awn3.JPG",
-      "../public/projects/t3awn4.jpg",
+      "../projects/t3awn1.JPG",
+      "../projects/t3awn2.JPG",
+      "../projects/t3awn3.JPG",
+      "../projects/t3awn4.jpg",
     ],
   },
   {
@@ -28,10 +28,10 @@ const externalProjects = [
     description:
       "تصميم وتنفيذ مشروع خارجي راقٍ يتوافق مع أحدث المعايير الهندسية.",
     images: [
-      "../public/projects/resort1.JPG",
-      "../public/projects/resort2.jpg",
-      "../public/projects/resort3.JPG",
-      "../public/projects/resort4.PNG",
+      "../projects/resort1.JPG",
+      "../projects/resort2.jpg",
+      "../projects/resort3.JPG",
+      "../projects/resort4.PNG",
     ],
   },
 ];
