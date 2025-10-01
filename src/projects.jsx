@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 
 const externalProjects = [
@@ -6,10 +6,11 @@ const externalProjects = [
     name: "  مشروع حي الملك سلمان " ,
     description: "تنفيذ وتصميم مشروع خارجي مميز يجمع بين الحداثة والعملية.",
     images: [
-      "/projects/ksulman1.jpg",
-      "../projects/ksulman2.JPG",
-      "../projects/ksulman3.JPG",
-      "../projects/ksulman4.JPG",
+      // Make sure these paths are correct for your public folder
+      "/projects/ksulman1.jpg", 
+      "/projects/ksulman2.JPG",
+      "/projects/ksulman3.JPG",
+      "/projects/ksulman4.JPG",
     ],
   },
   {
@@ -17,10 +18,11 @@ const externalProjects = [
     description:
       "مشروع فيلا خارجية بتصميم فريد يبرز جمال الواجهات والمساحات الخارجية.",
     images: [
-      "../projects/t3awn1.JPG",
-      "../projects/t3awn2.JPG",
-      "../projects/t3awn3.JPG",
-      "../projects/t3awn4.jpg",
+      // Make sure these paths are correct for your public folder
+      "/projects/t3awn1.JPG",
+      "/projects/t3awn2.JPG",
+      "/projects/t3awn3.JPG",
+      "/projects/t3awn4.jpg",
     ],
   },
   {
@@ -28,10 +30,11 @@ const externalProjects = [
     description:
       "تصميم وتنفيذ مشروع خارجي راقٍ يتوافق مع أحدث المعايير الهندسية.",
     images: [
-      "../projects/resort1.JPG",
-      "../projects/resort2.jpg",
-      "../projects/resort3.JPG",
-      "../projects/resort4.PNG",
+      // Make sure these paths are correct for your public folder
+      "/projects/resort1.JPG",
+      "/projects/resort2.jpg",
+      "/projects/resort3.JPG",
+      "/projects/resort4.PNG",
     ],
   },
 ];
@@ -50,6 +53,36 @@ const itemVariants = {
   hidden: { opacity: 0, scale: 0.95 },
   visible: { opacity: 1, scale: 1 },
 };
+
+// --- New Image Loader Component ---
+const ImageLoader = ({ src, alt }) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  return (
+    <div className="relative w-full h-56">
+      {/* Skeleton/Placeholder Box (Shows when imageLoaded is false) */}
+      {!imageLoaded && (
+        <div className="absolute inset-0 bg-gray-300 animate-pulse rounded-xl"></div>
+      )}
+
+      {/* Actual Image */}
+      <img
+        src={src}
+        alt={alt}
+        // Tailwind classes: controls visibility based on the state
+        className={`
+          w-full h-full object-cover transform 
+          group-hover:scale-105 transition-transform duration-500 rounded-xl
+          ${imageLoaded ? 'opacity-100' : 'opacity-0 absolute'}
+        `}
+        // Event handler to set state when the image is loaded
+        onLoad={() => setImageLoaded(true)}
+        loading="lazy"
+      />
+    </div>
+  );
+};
+// ---------------------------------
 
 function Projects() {
   return (
@@ -102,11 +135,10 @@ function Projects() {
                   variants={itemVariants}
                   className="overflow-hidden rounded-xl  group"
                 >
-                  <img
-                    src={image}
-                    alt={`${project.name} - صورة ${i + 1}`}
-                    className="w-full h-56 object-cover transform group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
+                  {/* Replace the old <img> tag with the new ImageLoader component */}
+                  <ImageLoader 
+                    src={image} 
+                    alt={`${project.name} - صورة ${i + 1}`} 
                   />
                 </motion.div>
               ))}
