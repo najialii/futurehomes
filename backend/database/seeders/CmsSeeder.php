@@ -52,7 +52,7 @@ class CmsSeeder extends Seeder
         ];
 
         foreach ($stats as $statData) {
-            Stat::create($statData);
+            Stat::firstOrCreate(['name' => $statData['name']], $statData);
         }
 
         // Create services (Arabic content from frontend)
@@ -84,7 +84,7 @@ class CmsSeeder extends Seeder
         ];
 
         foreach ($services as $serviceData) {
-            Service::create($serviceData);
+            Service::firstOrCreate(['title' => $serviceData['title']], $serviceData);
         }
 
         // Create projects (Arabic content from frontend)
@@ -113,7 +113,7 @@ class CmsSeeder extends Seeder
         ];
 
         foreach ($projects as $projectData) {
-            Project::create($projectData);
+            Project::firstOrCreate(['name' => $projectData['name']], $projectData);
         }
 
         // Create project images for the seeded projects
@@ -198,7 +198,10 @@ class CmsSeeder extends Seeder
         ];
 
         foreach ($projectImages as $imageData) {
-            \App\Models\ProjectImage::create($imageData);
+            \App\Models\ProjectImage::firstOrCreate(
+                ['project_id' => $imageData['project_id'], 'image_path' => $imageData['image_path']], 
+                $imageData
+            );
         }
 
         // Create partners (from frontend)
@@ -210,7 +213,7 @@ class CmsSeeder extends Seeder
         ];
 
         foreach ($partners as $partnerData) {
-            Partner::create(array_merge($partnerData, ['is_active' => true]));
+            Partner::firstOrCreate(['name' => $partnerData['name']], array_merge($partnerData, ['is_active' => true]));
         }
 
         // Create testimonials (Arabic content)
@@ -242,7 +245,7 @@ class CmsSeeder extends Seeder
         ];
 
         foreach ($testimonials as $testimonialData) {
-            Testimonial::create($testimonialData);
+            Testimonial::firstOrCreate(['client_name' => $testimonialData['client_name']], $testimonialData);
         }
 
         // Create pages (Arabic content matching frontend navigation)
@@ -342,7 +345,7 @@ class CmsSeeder extends Seeder
         ];
 
         foreach ($pages as $pageData) {
-            Page::create($pageData);
+            Page::firstOrCreate(['slug' => $pageData['slug']], $pageData);
         }
 
         // Create sample contact submissions (Arabic content)
@@ -366,7 +369,7 @@ class CmsSeeder extends Seeder
         ];
 
         foreach ($contactSubmissions as $submissionData) {
-            ContactSubmission::create($submissionData);
+            ContactSubmission::firstOrCreate(['email' => $submissionData['email']], $submissionData);
         }
     }
 }
