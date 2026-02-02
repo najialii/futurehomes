@@ -21,10 +21,14 @@ class DatabaseSeeder extends Seeder
         // Seed CMS content
         $this->call(CmsSeeder::class);
 
-        // Create test user
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // Create test user only if it doesn't exist
+        User::firstOrCreate(
+            ['email' => 'test@example.com'],
+            [
+                'name' => 'Test User',
+                'email' => 'test@example.com',
+                'password' => bcrypt('password'),
+            ]
+        );
     }
 }
