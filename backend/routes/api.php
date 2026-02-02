@@ -26,7 +26,7 @@ Route::prefix('auth')->group(function () {
 });
 
 // Public API routes
-Route::prefix('v1')->middleware(['throttle:api', 'cache.headers'])->group(function () {
+Route::prefix('v1')->middleware(['throttle:api'])->group(function () {
     // Company information
     Route::get('/company', [CompanyController::class, 'index']);
     
@@ -61,11 +61,11 @@ Route::prefix('v1')->middleware(['throttle:api', 'cache.headers'])->group(functi
     Route::get('/pages/{slug}', [PageController::class, 'show']);
     
     // Contact form (more restrictive rate limiting)
-    Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:contact');
+    Route::post('/contact', [ContactController::class, 'store']);
 });
 
 // Backward compatibility routes (without v1 prefix)
-Route::middleware(['throttle:api', 'cache.headers'])->group(function () {
+Route::middleware(['throttle:api'])->group(function () {
     Route::get('/companies', [CompanyController::class, 'index']);
     Route::get('/services', [ServiceController::class, 'index']);
     Route::get('/services/{service}', [ServiceController::class, 'show']);
@@ -83,7 +83,7 @@ Route::middleware(['throttle:api', 'cache.headers'])->group(function () {
     Route::get('/designs/{design}', [DesignController::class, 'show']);
     Route::get('/pages', [PageController::class, 'index']);
     Route::get('/pages/{slug}', [PageController::class, 'show']);
-    Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:contact');
+    Route::post('/contact', [ContactController::class, 'store']);
 });
 
 // Authenticated routes with permission-based access control
