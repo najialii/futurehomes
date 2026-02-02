@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+
+@layer base {
+    @font-face {
+      font-family: 'elmassri';
+      src: url('../src/assets/fonts/ElMessiri-Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+  }
