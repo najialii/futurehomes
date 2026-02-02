@@ -61,7 +61,7 @@ Route::prefix('v1')->middleware(['throttle:api'])->group(function () {
     Route::get('/pages/{slug}', [PageController::class, 'show']);
     
     // Contact form (more restrictive rate limiting)
-    Route::post('/contact', [ContactController::class, 'store']);
+    Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:contact');
 });
 
 // Backward compatibility routes (without v1 prefix)
@@ -83,7 +83,7 @@ Route::middleware(['throttle:api'])->group(function () {
     Route::get('/designs/{design}', [DesignController::class, 'show']);
     Route::get('/pages', [PageController::class, 'index']);
     Route::get('/pages/{slug}', [PageController::class, 'show']);
-    Route::post('/contact', [ContactController::class, 'store']);
+    Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:contact');
 });
 
 // Authenticated routes with permission-based access control
