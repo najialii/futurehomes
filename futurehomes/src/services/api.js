@@ -1,6 +1,6 @@
 // API service for Future Homes CMS
 const API_BASE_URL = process.env.NODE_ENV === 'production' 
-  ? 'https://futurehomessa.com/api' 
+  ? '/api' 
   : 'http://localhost:8000/api';
 
 class ApiService {
