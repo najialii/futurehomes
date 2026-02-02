@@ -1,8 +1,12 @@
 {
   "name": "futurehomes",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "description": "Future Homes - Premium Construction & Interior Design Services Website",
+  "author": "Future Homes",
+  "homepage": "https://futurehomessa.com",
+  "keywords": ["construction", "interior-design", "architecture", "saudi-arabia", "premium-construction"],
   "scripts": {
     "dev": "vite",
     "build": "vite build",

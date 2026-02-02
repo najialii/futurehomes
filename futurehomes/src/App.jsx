@@ -6,7 +6,7 @@ import Stats from "./stats";
 import Projects from "./projects";
 import Contact from "./contact";
 import Testimonials from "./testimonials";
-import ApiStatus from "./components/ApiStatus";
+// import ApiStatus from "./components/ApiStatus";
 import ServiceProjects from "./service-projects";
 import { Routes, Route } from 'react-router-dom';
 import './index.css';
@@ -96,7 +96,7 @@ function App() {
       </Routes>
 
       <Footer />
-      <ApiStatus />
+      {/* <ApiStatus /> */}
     </div>
   );
 }

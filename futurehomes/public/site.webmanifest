@@ -1,0 +1,21 @@
+{
+  "name": "Future Homes - Premium Construction & Interior Design",
+  "short_name": "Future Homes",
+  "description": "Transform your vision into reality with Future Homes. Premium construction and interior design services.",
+  "icons": [
+    {
+      "src": "/white.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "theme_color": "#34717F",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "start_url": "/",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["business", "construction", "design"]
+}
