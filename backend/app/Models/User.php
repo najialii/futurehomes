@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Traits\Auditable;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
@@ -14,35 +13,23 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements FilamentUser
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
+    
     use HasFactory, Notifiable, HasApiTokens, Auditable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
+    
     protected $fillable = [
         'name',
         'email',
         'password',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
+    
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
+    
     protected function casts(): array
     {
         return [
@@ -51,33 +38,25 @@ class User extends Authenticatable implements FilamentUser
         ];
     }
 
-    /**
-     * The roles that belong to the user.
-     */
+    
     public function roles(): BelongsToMany
     {
         return $this->belongsToMany(Role::class);
     }
 
-    /**
-     * Check if user has a specific role.
-     */
+    
     public function hasRole(string $role): bool
     {
         return $this->roles()->where('name', $role)->exists();
     }
 
-    /**
-     * Check if user has any of the given roles.
-     */
+    
     public function hasAnyRole(array $roles): bool
     {
         return $this->roles()->whereIn('name', $roles)->exists();
     }
 
-    /**
-     * Check if user has a specific permission.
-     */
+    
     public function hasPermission(string $permission): bool
     {
         return $this->roles()->whereHas('permissions', function ($query) use ($permission) {
@@ -85,9 +64,7 @@ class User extends Authenticatable implements FilamentUser
         })->exists();
     }
 
-    /**
-     * Check if user has any of the given permissions.
-     */
+    
     public function hasAnyPermission(array $permissions): bool
     {
         return $this->roles()->whereHas('permissions', function ($query) use ($permissions) {
@@ -95,9 +72,7 @@ class User extends Authenticatable implements FilamentUser
         })->exists();
     }
 
-    /**
-     * Assign role to user.
-     */
+    
     public function assignRole(Role|string $role): self
     {
         if (is_string($role)) {
@@ -109,9 +84,7 @@ class User extends Authenticatable implements FilamentUser
         return $this;
     }
 
-    /**
-     * Remove role from user.
-     */
+    
     public function removeRole(Role|string $role): self
     {
         if (is_string($role)) {
@@ -123,9 +96,7 @@ class User extends Authenticatable implements FilamentUser
         return $this;
     }
 
-    /**
-     * Get all permissions for the user through their roles.
-     */
+    
     public function getAllPermissions()
     {
         return Permission::whereHas('roles', function ($query) {
@@ -133,28 +104,22 @@ class User extends Authenticatable implements FilamentUser
         })->get();
     }
 
-    /**
-     * Check if user is admin.
-     */
+    
     public function isAdmin(): bool
     {
         return $this->hasRole('admin');
     }
 
-    /**
-     * Check if user is content manager.
-     */
+    
     public function isContentManager(): bool
     {
         return $this->hasAnyRole(['admin', 'content_manager']);
     }
 
-    /**
-     * Determine if the user can access the Filament admin panel.
-     */
+    
     public function canAccessPanel(Panel $panel): bool
     {
-        // Allow access if user has admin or content_manager role
+
         return $this->hasAnyRole(['admin', 'content_manager']);
     }
 }

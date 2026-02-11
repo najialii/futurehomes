@@ -13,13 +13,10 @@ use Illuminate\Database\Seeder;
 
 class CmsSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
+    
     public function run(): void
     {
 
-        // Create stats (name and number data)
         $stats = [
             [
                 'name' => 'سنوات الخبرة',
@@ -55,7 +52,6 @@ class CmsSeeder extends Seeder
             Stat::firstOrCreate(['name' => $statData['name']], $statData);
         }
 
-        // Create services (Arabic content from frontend)
         $services = [
             [
                 'title' => 'التصميم',
@@ -87,7 +83,6 @@ class CmsSeeder extends Seeder
             Service::firstOrCreate(['title' => $serviceData['title']], $serviceData);
         }
 
-        // Create projects (Arabic content from frontend)
         $projects = [
             [
                 'name' => 'مشروع حي الملك سلمان',
@@ -116,9 +111,8 @@ class CmsSeeder extends Seeder
             Project::firstOrCreate(['name' => $projectData['name']], $projectData);
         }
 
-        // Create project images for the seeded projects
         $projectImages = [
-            // Images for مشروع حي الملك سلمان (Project ID 1)
+
             [
                 'project_id' => 1,
                 'image_path' => 'projects/ksulman1.jpg',
@@ -143,8 +137,7 @@ class CmsSeeder extends Seeder
                 'alt_text' => 'مشروع حي الملك سلمان - صورة 4',
                 'display_order' => 4,
             ],
-            
-            // Images for مشروع التعاون (Project ID 2)
+
             [
                 'project_id' => 2,
                 'image_path' => 'projects/t3awn1.JPG',
@@ -169,8 +162,7 @@ class CmsSeeder extends Seeder
                 'alt_text' => 'مشروع التعاون - صورة 4',
                 'display_order' => 4,
             ],
-            
-            // Images for مشروع منتجع (Project ID 3)
+
             [
                 'project_id' => 3,
                 'image_path' => 'projects/resort1.JPG',
@@ -204,7 +196,6 @@ class CmsSeeder extends Seeder
             );
         }
 
-        // Create partners (from frontend)
         $partners = [
             ['name' => '3nood', 'logo_path' => 'partners/logos/3nood.svg', 'website_url' => 'https://3nood.com', 'display_order' => 1],
             ['name' => 'Jood', 'logo_path' => 'partners/logos/joodwhite.svg', 'website_url' => 'https://jood.sa', 'display_order' => 2],
@@ -216,7 +207,6 @@ class CmsSeeder extends Seeder
             Partner::firstOrCreate(['name' => $partnerData['name']], array_merge($partnerData, ['is_active' => true]));
         }
 
-        // Create testimonials (Arabic content)
         $testimonials = [
             [
                 'client_name' => 'أحمد محمد السعيد',
@@ -248,7 +238,6 @@ class CmsSeeder extends Seeder
             Testimonial::firstOrCreate(['client_name' => $testimonialData['client_name']], $testimonialData);
         }
 
-        // Create pages (Arabic content matching frontend navigation)
         $pages = [
             [
                 'slug' => 'home',
@@ -348,7 +337,6 @@ class CmsSeeder extends Seeder
             Page::firstOrCreate(['slug' => $pageData['slug']], $pageData);
         }
 
-        // Create sample contact submissions (Arabic content)
         $contactSubmissions = [
             [
                 'name' => 'عبدالله محمد الأحمد',

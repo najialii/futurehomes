@@ -7,6 +7,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
 use Filament\Forms\Components\Repeater;
 use Filament\Schemas\Schema;
@@ -50,7 +51,12 @@ class ProjectForm
                             ->numeric()
                             ->default(0)
                             ->required(),
-                    ])->columns(2),
+
+                        Toggle::make('is_featured')
+                            ->label('Featured on Homepage')
+                            ->helperText('Show this project on the homepage featured section')
+                            ->default(false),
+                    ])->columns(3),
 
                 Section::make('Project Images')
                     ->components([
@@ -63,7 +69,8 @@ class ProjectForm
                                     ->image()
                                     ->directory('projects')
                                     ->visibility('public')
-                                    ->imageEditor()
+                                    ->maxSize(51200) // 50MB
+                                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
                                     ->required(),
                                 
                                 TextInput::make('alt_text')

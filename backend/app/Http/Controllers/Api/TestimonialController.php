@@ -9,30 +9,24 @@ use Illuminate\Http\Request;
 
 class TestimonialController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
     public function index(Request $request)
     {
         $query = Testimonial::query();
 
-        // Filter by status
         if ($request->has('status')) {
             $query->where('status', $request->get('status'));
         } else {
-            // Default to approved testimonials only for public API
+
             $query->where('status', 'approved');
         }
 
-        // Filter by rating
         if ($request->has('min_rating')) {
             $query->where('rating', '>=', $request->get('min_rating'));
         }
 
-        // Pagination
         $perPage = $request->get('per_page', 10);
-        
-        // Validate and sanitize per_page parameter
+
         if (!is_numeric($perPage) || $perPage < 1) {
             $perPage = 10; // Default
         } elseif ($perPage > 100) {
@@ -44,9 +38,7 @@ class TestimonialController extends Controller
         return TestimonialResource::collection($testimonials);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -56,7 +48,6 @@ class TestimonialController extends Controller
             'status' => 'in:pending,approved,rejected',
         ]);
 
-        // Default status to pending for public submissions
         if (!isset($validated['status'])) {
             $validated['status'] = 'pending';
         }
@@ -66,17 +57,13 @@ class TestimonialController extends Controller
         return new TestimonialResource($testimonial);
     }
 
-    /**
-     * Display the specified resource.
-     */
+    
     public function show(Testimonial $testimonial)
     {
         return new TestimonialResource($testimonial);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    
     public function update(Request $request, Testimonial $testimonial)
     {
         $validated = $request->validate([
@@ -91,9 +78,7 @@ class TestimonialController extends Controller
         return new TestimonialResource($testimonial);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    
     public function destroy(Testimonial $testimonial)
     {
         $testimonial->delete();

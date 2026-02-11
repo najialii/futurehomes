@@ -49,7 +49,7 @@ class AuditLogsTable
                     ->sortable(),
             ])
             ->filters([
-                //
+
             ])
             ->recordActions([
                 ViewAction::make(),

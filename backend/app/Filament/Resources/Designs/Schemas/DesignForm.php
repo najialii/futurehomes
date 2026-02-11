@@ -56,9 +56,12 @@ class DesignForm
                             ->directory('designs')
                             ->visibility('public')
                             ->imageEditor()
-                            ->maxSize(5120) // 5MB
+                            ->imageResizeMode('cover')
+                            ->imageResizeTargetWidth('1920')
+                            ->imageResizeTargetHeight('1080')
+                            ->maxSize(20480) // 20MB
                             ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
-                            ->helperText('الحد الأقصى لحجم الملف: 5 ميجابايت. الصيغ المدعومة: JPEG, PNG, WebP')
+                            ->helperText('الحد الأقصى لحجم الملف: 20 ميجابايت. سيتم تحسين الصورة تلقائياً')
                             ->columnSpanFull(),
                     ]),
 

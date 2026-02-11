@@ -10,8 +10,7 @@ server {
     location /api/ {
         alias /var/www/futurehomessa.com/backend/public/;
         try_files $uri $uri/ @api;
-        
-        # Add CORS headers
+    
         add_header 'Access-Control-Allow-Origin' '*' always;
         add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS' always;
         add_header 'Access-Control-Allow-Headers' 'Content-Type, Authorization, X-Requested-With' always;

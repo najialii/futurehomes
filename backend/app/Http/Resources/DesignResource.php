@@ -7,11 +7,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class DesignResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @return array<string, mixed>
-     */
+    
     public function toArray(Request $request): array
     {
         return [
@@ -20,7 +16,7 @@ class DesignResource extends JsonResource
             'description' => $this->description,
             'category' => $this->category,
             'category_label' => $this->getCategories()[$this->category] ?? $this->category,
-            'image_url' => $this->image_path ? url('/images/' . $this->image_path) : null,
+            'image_url' => $this->image_path ? url('/storage/' . $this->image_path) : null,
             'alt_text' => $this->alt_text,
             'display_order' => $this->display_order,
             'status' => $this->status,

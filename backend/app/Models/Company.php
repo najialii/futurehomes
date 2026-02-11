@@ -35,9 +35,7 @@ class Company extends Model implements HasMedia
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/svg+xml']);
     }
 
-    /**
-     * Get validation rules for company data
-     */
+    
     public static function getValidationRules(): array
     {
         return [
@@ -52,9 +50,7 @@ class Company extends Model implements HasMedia
         ];
     }
 
-    /**
-     * Sanitize input before saving
-     */
+    
     protected static function boot()
     {
         parent::boot();

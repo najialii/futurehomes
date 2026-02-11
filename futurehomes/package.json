@@ -6,7 +6,13 @@
   "description": "Future Homes - Premium Construction & Interior Design Services Website",
   "author": "Future Homes",
   "homepage": "https://futurehomessa.com",
-  "keywords": ["construction", "interior-design", "architecture", "saudi-arabia", "premium-construction"],
+  "keywords": [
+    "construction",
+    "interior-design",
+    "architecture",
+    "saudi-arabia",
+    "premium-construction"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -14,6 +20,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^7.1.0",
+    "@fortawesome/free-brands-svg-icons": "^7.1.0",
+    "@fortawesome/free-solid-svg-icons": "^7.1.0",
+    "@fortawesome/react-fontawesome": "^3.1.1",
     "@tailwindcss/vite": "^4.1.13",
     "framer-motion": "^12.23.12",
     "lucide-react": "^0.543.0",

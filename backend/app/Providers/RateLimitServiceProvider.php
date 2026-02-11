@@ -9,17 +9,13 @@ use Illuminate\Support\ServiceProvider;
 
 class RateLimitServiceProvider extends ServiceProvider
 {
-    /**
-     * Register services.
-     */
+    
     public function register(): void
     {
-        //
+
     }
 
-    /**
-     * Bootstrap services.
-     */
+    
     public function boot(): void
     {
         RateLimiter::for('api', function (Request $request) {

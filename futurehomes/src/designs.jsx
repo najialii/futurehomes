@@ -28,8 +28,17 @@ const ImageLoader = ({ src, alt, onClick }) => {
     setImageLoaded(false);
   };
 
+  const handleContextMenu = (e) => {
+    e.preventDefault();
+    return false;
+  };
+
   return (
-    <div className="relative w-full h-60 cursor-pointer group" onClick={onClick}>
+    <div 
+      className="relative w-full h-60 cursor-pointer group watermarked-image" 
+      onClick={onClick}
+      onContextMenu={handleContextMenu}
+    >
       {!imageLoaded && !imageError && (
         <div className="absolute inset-0 bg-gray-300 animate-pulse rounded-2xl flex items-center justify-center">
           <span className="text-gray-500 text-sm">جاري التحميل...</span>
@@ -52,8 +61,23 @@ const ImageLoader = ({ src, alt, onClick }) => {
         `}
         onLoad={handleImageLoad}
         onError={handleImageError}
+        onContextMenu={handleContextMenu}
+        onDragStart={handleContextMenu}
         loading="lazy"
+        draggable="false"
       />
+      
+      {/* Watermark overlay */}
+      {imageLoaded && (
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <img 
+            src="/white.svg" 
+            alt="watermark" 
+            className="w-1/3 h-1/3 object-contain opacity-30"
+            draggable="false"
+          />
+        </div>
+      )}
     </div>
   );
 };
@@ -281,12 +305,25 @@ function Designs() {
               onClick={(e) => e.stopPropagation()}
             >
               {/* Image with overlay */}
-              <div className="relative rounded-xl overflow-hidden">
+              <div className="relative rounded-xl overflow-hidden watermarked-image">
                 <img
                   src={selected.image_url}
                   alt={selected.alt_text || selected.title}
                   className="w-full max-h-[80vh] object-cover"
+                  onContextMenu={(e) => e.preventDefault()}
+                  onDragStart={(e) => e.preventDefault()}
+                  draggable="false"
                 />
+                
+                {/* Watermark overlay for lightbox */}
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-5">
+                  <img 
+                    src="/white.svg" 
+                    alt="watermark" 
+                    className="w-1/4 h-1/4 object-contain opacity-40"
+                    draggable="false"
+                  />
+                </div>
                 
                 {/* Close button */}
                 <button

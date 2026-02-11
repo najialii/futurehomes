@@ -22,7 +22,7 @@ class PageResource extends Resource
 
     public static function form(Schema $schema): Schema
     {
-        return PageForm::configure($form);
+        return PageForm::configure($schema);
     }
 
     public static function table(Table $table): Table
@@ -33,7 +33,7 @@ class PageResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+
         ];
     }
 

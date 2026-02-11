@@ -9,18 +9,15 @@ use Illuminate\Support\Facades\File;
 
 class DesignsSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
+    
     public function run(): void
     {
-        // Create designs directory if it doesn't exist
+
         $designsPath = storage_path('app/public/designs');
         if (!File::exists($designsPath)) {
             File::makeDirectory($designsPath, 0755, true);
         }
 
-        // Copy existing project images to designs directory
         $projectsPath = storage_path('app/public/projects');
         $projectImages = [
             'ksulman1.jpg',
@@ -37,7 +34,6 @@ class DesignsSeeder extends Seeder
             't3awn4.jpg',
         ];
 
-        // Copy images to designs directory
         foreach ($projectImages as $image) {
             $sourcePath = $projectsPath . '/' . $image;
             $destinationPath = $designsPath . '/' . $image;

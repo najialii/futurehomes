@@ -52,7 +52,7 @@ class TestimonialsTable
                     ->sortable(),
             ])
             ->filters([
-                //
+
             ])
             ->recordActions([
                 EditAction::make(),

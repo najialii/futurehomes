@@ -10,10 +10,10 @@ use App\Http\Controllers\Api\PageController;
 use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\StatController;
 use App\Http\Controllers\Api\DesignController;
+use App\Http\Controllers\Api\SocialLinkController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-// Authentication routes
 Route::prefix('auth')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/register', [AuthController::class, 'register']);
@@ -25,51 +25,47 @@ Route::prefix('auth')->group(function () {
     });
 });
 
-// Public API routes
 Route::prefix('v1')->middleware(['throttle:api'])->group(function () {
-    // Company information
+
     Route::get('/company', [CompanyController::class, 'index']);
-    
-    // Services
+
     Route::get('/services', [ServiceController::class, 'index']);
     Route::get('/services/{service}', [ServiceController::class, 'show']);
-    
-    // Projects
+
     Route::get('/projects', [ProjectController::class, 'index']);
+    Route::get('/projects/featured', [ProjectController::class, 'featured']);
     Route::get('/projects/{project}', [ProjectController::class, 'show']);
     Route::get('/services/{serviceId}/projects', [ProjectController::class, 'byService']);
-    
-    // Partners
+
     Route::get('/partners', [PartnerController::class, 'index']);
-    
-    // Testimonials
+
     Route::get('/testimonials', [TestimonialController::class, 'index']);
-    
-    // Stats
+
     Route::get('/stats', [StatController::class, 'index']);
-    
-    // Designs
+
     Route::get('/designs', [DesignController::class, 'index']);
     Route::get('/designs/featured', [DesignController::class, 'featured']);
     Route::get('/designs/categories', [DesignController::class, 'categories']);
     Route::get('/designs/tags', [DesignController::class, 'tags']);
     Route::get('/designs/category/{category}', [DesignController::class, 'byCategory']);
     Route::get('/designs/{design}', [DesignController::class, 'show']);
-    
-    // Pages
+
+    Route::get('/social-links', [SocialLinkController::class, 'index']);
+
     Route::get('/pages', [PageController::class, 'index']);
     Route::get('/pages/{slug}', [PageController::class, 'show']);
-    
-    // Contact form (more restrictive rate limiting)
+    Route::get('/hero', [PageController::class, 'hero']);
+    Route::get('/contact-info', [PageController::class, 'contact']);
+
     Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:contact');
 });
 
-// Backward compatibility routes (without v1 prefix)
 Route::middleware(['throttle:api'])->group(function () {
     Route::get('/companies', [CompanyController::class, 'index']);
     Route::get('/services', [ServiceController::class, 'index']);
     Route::get('/services/{service}', [ServiceController::class, 'show']);
     Route::get('/projects', [ProjectController::class, 'index']);
+    Route::get('/projects/featured', [ProjectController::class, 'featured']);
     Route::get('/projects/{project}', [ProjectController::class, 'show']);
     Route::get('/services/{serviceId}/projects', [ProjectController::class, 'byService']);
     Route::get('/partners', [PartnerController::class, 'index']);
@@ -81,18 +77,19 @@ Route::middleware(['throttle:api'])->group(function () {
     Route::get('/designs/tags', [DesignController::class, 'tags']);
     Route::get('/designs/category/{category}', [DesignController::class, 'byCategory']);
     Route::get('/designs/{design}', [DesignController::class, 'show']);
+    Route::get('/social-links', [SocialLinkController::class, 'index']);
     Route::get('/pages', [PageController::class, 'index']);
     Route::get('/pages/{slug}', [PageController::class, 'show']);
+    Route::get('/hero', [PageController::class, 'hero']);
+    Route::get('/contact-info', [PageController::class, 'contact']);
     Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:contact');
 });
 
-// Authenticated routes with permission-based access control
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
-    
-    // Admin API routes with permission checks
+
     Route::middleware('permission:companies.create')->post('/companies', [CompanyController::class, 'store']);
     Route::middleware('permission:companies.read')->get('/companies/{company}', [CompanyController::class, 'show']);
     Route::middleware('permission:companies.update')->put('/companies/{company}', [CompanyController::class, 'update']);
@@ -123,21 +120,18 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::middleware('permission:pages.update')->put('/pages/{page}', [PageController::class, 'update']);
     Route::middleware('permission:pages.update')->patch('/pages/{page}', [PageController::class, 'update']);
     Route::middleware('permission:pages.delete')->delete('/pages/{page}', [PageController::class, 'destroy']);
-    
-    // Stats management
+
     Route::middleware('permission:stats.create')->post('/stats', [StatController::class, 'store']);
     Route::middleware('permission:stats.read')->get('/stats/{stat}', [StatController::class, 'show']);
     Route::middleware('permission:stats.update')->put('/stats/{stat}', [StatController::class, 'update']);
     Route::middleware('permission:stats.update')->patch('/stats/{stat}', [StatController::class, 'update']);
     Route::middleware('permission:stats.delete')->delete('/stats/{stat}', [StatController::class, 'destroy']);
-    
-    // Designs management
+
     Route::middleware('permission:designs.create')->post('/designs', [DesignController::class, 'store']);
     Route::middleware('permission:designs.update')->put('/designs/{design}', [DesignController::class, 'update']);
     Route::middleware('permission:designs.update')->patch('/designs/{design}', [DesignController::class, 'update']);
     Route::middleware('permission:designs.delete')->delete('/designs/{design}', [DesignController::class, 'destroy']);
-    
-    // Contact submissions management
+
     Route::middleware('permission:contact_submissions.read')->get('/contact-submissions', [ContactController::class, 'index']);
     Route::middleware('permission:contact_submissions.read')->get('/contact-submissions/{submission}', [ContactController::class, 'show']);
     Route::middleware('permission:contact_submissions.update')->put('/contact-submissions/{submission}', [ContactController::class, 'update']);

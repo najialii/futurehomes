@@ -9,22 +9,17 @@ use Illuminate\Support\Facades\Validator;
 
 class ContactController extends Controller
 {
-    /**
-     * Display a listing of contact submissions.
-     */
+    
     public function index(Request $request)
     {
         $query = ContactSubmission::query();
 
-        // Filter by status
         if ($request->has('status')) {
             $query->where('status', $request->get('status'));
         }
 
-        // Pagination
         $perPage = $request->get('per_page', 15);
-        
-        // Validate and sanitize per_page parameter
+
         if (!is_numeric($perPage) || $perPage < 1) {
             $perPage = 15; // Default
         } elseif ($perPage > 100) {
@@ -36,9 +31,7 @@ class ContactController extends Controller
         return response()->json($submissions);
     }
 
-    /**
-     * Store a newly created contact submission.
-     */
+    
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -77,9 +70,7 @@ class ContactController extends Controller
         }
     }
 
-    /**
-     * Display the specified contact submission.
-     */
+    
     public function show(ContactSubmission $submission)
     {
         return response()->json([
@@ -87,9 +78,7 @@ class ContactController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified contact submission.
-     */
+    
     public function update(Request $request, ContactSubmission $submission)
     {
         $validator = Validator::make($request->all(), [
@@ -111,9 +100,7 @@ class ContactController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified contact submission.
-     */
+    
     public function destroy(ContactSubmission $submission)
     {
         $submission->delete();

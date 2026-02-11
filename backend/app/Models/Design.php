@@ -27,7 +27,6 @@ class Design extends Model
         'is_featured' => 'boolean',
     ];
 
-    // Scopes
     public function scopePublished($query)
     {
         return $query->where('status', 'published');
@@ -48,13 +47,11 @@ class Design extends Model
         return $query->orderBy('display_order')->orderBy('created_at', 'desc');
     }
 
-    // Accessors
     public function getImageUrlAttribute()
     {
         return $this->image_path ? url('/images/' . $this->image_path) : null;
     }
 
-    // Available categories
     public static function getCategories()
     {
         return [
@@ -66,7 +63,6 @@ class Design extends Model
         ];
     }
 
-    // Available tags
     public static function getAvailableTags()
     {
         return [

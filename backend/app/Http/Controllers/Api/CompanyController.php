@@ -3,47 +3,64 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Company;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
     public function index()
     {
-        //
+        $company = Company::first();
+        
+        if (!$company) {
+            return response()->json([
+                'message' => 'Company information not found'
+            ], 404);
+        }
+
+        return response()->json([
+            'name' => $company->name,
+            'description' => $company->description,
+            'email' => $company->email,
+            'phone' => $company->phone,
+            'address' => $company->address,
+            'website_url' => $company->website_url,
+            'social_media' => $company->social_media,
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate(Company::getValidationRules());
+        $company = Company::create($validated);
+        
+        return response()->json($company, 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    
+    public function show(Company $company)
     {
-        //
+        return response()->json($company);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    
+    public function update(Request $request, Company $company)
     {
-        //
+        $validated = $request->validate(Company::getValidationRules());
+        $company->update($validated);
+        
+        return response()->json($company);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    
+    public function destroy(Company $company)
     {
-        //
+        $company->delete();
+        
+        return response()->json([
+            'message' => 'Company deleted successfully'
+        ]);
     }
 }

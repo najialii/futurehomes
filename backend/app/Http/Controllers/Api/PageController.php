@@ -9,18 +9,15 @@ use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
     public function index(Request $request)
     {
         $query = Page::query();
 
-        // Filter by published status
         if ($request->has('published')) {
             $query->where('is_published', $request->boolean('published'));
         } else {
-            // Default to published pages only for public API
+
             $query->where('is_published', true);
         }
 
@@ -29,9 +26,7 @@ class PageController extends Controller
         return PageResource::collection($pages);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -47,9 +42,7 @@ class PageController extends Controller
         return new PageResource($page);
     }
 
-    /**
-     * Display the specified resource by slug.
-     */
+    
     public function show($slug)
     {
         $page = Page::where('slug', $slug)->where('is_published', true)->firstOrFail();
@@ -57,17 +50,13 @@ class PageController extends Controller
         return new PageResource($page);
     }
 
-    /**
-     * Display the specified resource by ID.
-     */
+    
     public function showById(Page $page)
     {
         return new PageResource($page);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    
     public function update(Request $request, Page $page)
     {
         $validated = $request->validate([
@@ -83,15 +72,62 @@ class PageController extends Controller
         return new PageResource($page);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    
     public function destroy(Page $page)
     {
         $page->delete();
 
         return response()->json([
             'message' => 'Page deleted successfully'
+        ]);
+    }
+
+    
+    public function hero()
+    {
+        $heroPage = Page::where('has_hero', true)
+            ->where('is_published', true)
+            ->first();
+
+        if (!$heroPage) {
+            return response()->json([
+                'message' => 'No hero section found'
+            ], 404);
+        }
+
+        return response()->json([
+            'title' => $heroPage->hero_title,
+            'subtitle' => $heroPage->hero_subtitle,
+            'video_url' => $heroPage->hero_video_url,
+            'button_text' => $heroPage->hero_button_text,
+            'button_link' => $heroPage->hero_button_link,
+        ]);
+    }
+
+    
+    public function contact()
+    {
+        $contactPage = Page::where('is_contact_page', true)
+            ->where('is_published', true)
+            ->first();
+
+        if (!$contactPage) {
+            return response()->json([
+                'message' => 'No contact information found'
+            ], 404);
+        }
+
+        return response()->json([
+            'phone' => $contactPage->contact_phone,
+            'email' => $contactPage->contact_email,
+            'address' => $contactPage->contact_address,
+            'instagram' => $contactPage->contact_instagram,
+            'whatsapp' => $contactPage->contact_whatsapp,
+            'tiktok' => $contactPage->contact_tiktok,
+            'youtube' => $contactPage->contact_youtube,
+            'map_embed' => $contactPage->contact_map_embed,
+            'button_text' => $contactPage->contact_button_text,
+            'button_link' => $contactPage->contact_button_link,
         ]);
     }
 }

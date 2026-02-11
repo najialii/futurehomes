@@ -1,4 +1,3 @@
-// API service for Future Homes CMS
 const API_BASE_URL = process.env.NODE_ENV === 'production' 
   ? '/api' 
   : 'http://localhost:8000/api';
@@ -33,7 +32,6 @@ class ApiService {
     }
   }
 
-  // Services API
   async getServices() {
     return this.request('/services');
   }
@@ -42,7 +40,6 @@ class ApiService {
     return this.request(`/services/${id}`);
   }
 
-  // Projects API
   async getProjects() {
     return this.request('/projects');
   }
@@ -55,22 +52,22 @@ class ApiService {
     return this.request(`/services/${serviceId}/projects`);
   }
 
-  // Partners API
+  async getFeaturedProjects() {
+    return this.request('/projects/featured');
+  }
+
   async getPartners() {
     return this.request('/partners');
   }
 
-  // Testimonials API
   async getTestimonials() {
     return this.request('/testimonials');
   }
 
-  // Stats API
   async getStats() {
     return this.request('/stats');
   }
 
-  // Designs API
   async getDesigns() {
     return this.request('/designs');
   }
@@ -95,7 +92,6 @@ class ApiService {
     return this.request('/designs/tags');
   }
 
-  // Pages API
   async getPages() {
     return this.request('/pages');
   }
@@ -104,17 +100,27 @@ class ApiService {
     return this.request(`/pages/${slug}`);
   }
 
-  // Company API
   async getCompany() {
     return this.request('/company');
   }
 
-  // Contact API
   async submitContact(data) {
     return this.request('/contact', {
       method: 'POST',
       body: JSON.stringify(data),
     });
+  }
+
+  async getHero() {
+    return this.request('/hero');
+  }
+
+  async getContactInfo() {
+    return this.request('/contact-info');
+  }
+
+  async getSocialLinks() {
+    return this.request('/social-links');
   }
 }
 

@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import Navbar from "./navbar";
 import Hero from "./hero";
 import Services from "./service";
@@ -6,9 +6,8 @@ import Stats from "./stats";
 import Projects from "./projects";
 import Contact from "./contact";
 import Testimonials from "./testimonials";
-// import ApiStatus from "./components/ApiStatus";
 import ServiceProjects from "./service-projects";
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import './index.css';
 import Footer from "./footer";
 import Partners from "./partners";
@@ -36,7 +35,7 @@ const itemVariants = {
 const Home = () => (
   <>
     <Hero />
-    <Services />
+    <Services showHero={false} />
     <Stats />
     <HomeProjectsSection />
     <Testimonials />
@@ -81,6 +80,76 @@ const Home = () => (
 );
 
 function App() {
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    const handleContextMenu = (e) => {
+      e.preventDefault();
+      return false;
+    };
+
+    const handleKeyDown = (e) => {
+      if (
+        e.keyCode === 123 ||
+        (e.ctrlKey && e.shiftKey && e.keyCode === 73) ||
+        (e.ctrlKey && e.shiftKey && e.keyCode === 74) ||
+        (e.ctrlKey && e.keyCode === 85) ||
+        (e.ctrlKey && e.keyCode === 83) ||
+        (e.ctrlKey && e.shiftKey && e.keyCode === 67) ||
+        (e.ctrlKey && e.keyCode === 67) ||
+        (e.ctrlKey && e.keyCode === 86) ||
+        (e.ctrlKey && e.keyCode === 88) ||
+        (e.ctrlKey && e.keyCode === 65) ||
+        (e.ctrlKey && e.keyCode === 80) ||
+        (e.metaKey && e.keyCode === 67) ||
+        (e.metaKey && e.keyCode === 86) ||
+        (e.metaKey && e.keyCode === 88) ||
+        (e.metaKey && e.keyCode === 65) ||
+        (e.metaKey && e.keyCode === 80)
+      ) {
+        e.preventDefault();
+        return false;
+      }
+    };
+
+    const handleDragStart = (e) => {
+      e.preventDefault();
+      return false;
+    };
+
+    const handleSelectStart = (e) => {
+      e.preventDefault();
+      return false;
+    };
+
+    document.addEventListener('contextmenu', handleContextMenu);
+    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('dragstart', handleDragStart);
+    document.addEventListener('selectstart', handleSelectStart);
+
+    const devToolsCheck = setInterval(() => {
+      const threshold = 160;
+      if (
+        window.outerWidth - window.innerWidth > threshold ||
+        window.outerHeight - window.innerHeight > threshold
+      ) {
+        console.clear();
+      }
+    }, 1000);
+
+    return () => {
+      document.removeEventListener('contextmenu', handleContextMenu);
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('dragstart', handleDragStart);
+      document.removeEventListener('selectstart', handleSelectStart);
+      clearInterval(devToolsCheck);
+    };
+  }, []);
+
   return (
     <div className="font-elmassri bg-gray-50 text-gray-900">
       <Navbar />
@@ -96,7 +165,6 @@ function App() {
       </Routes>
 
       <Footer />
-      {/* <ApiStatus /> */}
     </div>
   );
 }

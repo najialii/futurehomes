@@ -20,3 +20,128 @@
   body {
     font-family: 'elmassri', sans-serif;
   }
+
+  /* Content Protection Styles */
+  * {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+  }
+
+  /* Allow text selection only in form inputs */
+  input, textarea {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+  }
+
+  /* Prevent right-click context menu on images */
+  img {
+    pointer-events: none;
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+  }
+
+  /* Prevent screenshot on some browsers */
+  body {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  /* Watermark styles */
+  .watermarked-image {
+    position: relative;
+    display: inline-block;
+  }
+
+  .watermarked-image::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40%;
+    height: 40%;
+    background-image: url('/white.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+.cms
+-content {
+  direction: rtl;
+  text-align: right;
+}
+
+.cms-content h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: #1f2937;
+}
+
+.cms-content h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #1f2937;
+}
+
+.cms-content h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: #4bb7c3;
+}
+
+.cms-content p {
+  margin-bottom: 1rem;
+  line-height: 1.75;
+  color: #4b5563;
+}
+
+.cms-content strong {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.cms-content ul, .cms-content ol {
+  margin-bottom: 1rem;
+  padding-right: 1.5rem;
+}
+
+.cms-content li {
+  margin-bottom: 0.5rem;
+  line-height: 1.75;
+}
+
+.cms-content blockquote {
+  border-right: 4px solid #4bb7c3;
+  padding-right: 1rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: #6b7280;
+}
+
+.cms-content a {
+  color: #4bb7c3;
+  text-decoration: underline;
+}
+
+.cms-content a:hover {
+  color: #3a9aa4;
+}

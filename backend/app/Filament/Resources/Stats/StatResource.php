@@ -22,7 +22,7 @@ class StatResource extends Resource
 
     public static function form(Schema $schema): Schema
     {
-        // Fixed: Passing $schema instead of the undefined $form
+
         return StatForm::configure($schema);
     }
 
@@ -34,7 +34,7 @@ class StatResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+
         ];
     }
 

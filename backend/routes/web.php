@@ -8,13 +8,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Test route
 Route::get('/test-storage', function () {
     \Log::info('Test storage route hit');
     return response()->json(['message' => 'Test route works']);
 });
 
-// Serve images with CORS headers
 Route::get('/images/{path}', function ($path) {
     \Log::info('Custom images route hit for path: ' . $path);
     

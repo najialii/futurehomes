@@ -8,7 +8,6 @@ const ApiStatus = () => {
   useEffect(() => {
     const checkApiStatus = async () => {
       try {
-        // Test multiple endpoints
         const [servicesResponse, statsResponse, partnersResponse] = await Promise.all([
           ApiService.getServices(),
           ApiService.getStats(),

@@ -48,7 +48,7 @@ class PagesTable
                     ->sortable(),
             ])
             ->filters([
-                //
+
             ])
             ->recordActions([
                 EditAction::make(),

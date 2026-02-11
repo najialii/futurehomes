@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import ApiService from "./services/api";
 
 // Animation Variants
@@ -18,7 +19,7 @@ const itemVariants = {
 };
 
 // --- Image Loader Component ---
-const ImageLoader = ({ src, alt }) => {
+const ImageLoader = ({ src, alt, onClick }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
 
@@ -33,8 +34,17 @@ const ImageLoader = ({ src, alt }) => {
     setImageLoaded(false);
   };
 
+  const handleContextMenu = (e) => {
+    e.preventDefault();
+    return false;
+  };
+
   return (
-    <div className="relative w-full h-56">
+    <div 
+      className="relative w-full h-56 cursor-pointer group watermarked-image" 
+      onClick={onClick}
+      onContextMenu={handleContextMenu}
+    >
       {/* Skeleton/Placeholder Box (Shows when imageLoaded is false and no error) */}
       {!imageLoaded && !imageError && (
         <div className="absolute inset-0 bg-gray-300 animate-pulse rounded-xl flex items-center justify-center">
@@ -60,8 +70,23 @@ const ImageLoader = ({ src, alt }) => {
         `}
         onLoad={handleImageLoad}
         onError={handleImageError}
+        onContextMenu={handleContextMenu}
+        onDragStart={handleContextMenu}
         loading="lazy"
+        draggable="false"
       />
+      
+      {/* Watermark overlay */}
+      {imageLoaded && (
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <img 
+            src="/white.svg" 
+            alt="watermark" 
+            className="w-1/3 h-1/3 object-contain opacity-30"
+            draggable="false"
+          />
+        </div>
+      )}
     </div>
   );
 };
@@ -70,6 +95,9 @@ function Projects() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [currentProjectImages, setCurrentProjectImages] = useState([]);
 
   // Fallback static data
   const fallbackProjects = [
@@ -222,7 +250,12 @@ function Projects() {
                 >
                   <ImageLoader 
                     src={typeof image === 'string' ? image : image.url} 
-                    alt={typeof image === 'string' ? `${project.name} - صورة ${i + 1}` : image.alt} 
+                    alt={typeof image === 'string' ? `${project.name} - صورة ${i + 1}` : image.alt}
+                    onClick={() => {
+                      setCurrentProjectImages(project.images);
+                      setCurrentImageIndex(i);
+                      setSelectedImage(typeof image === 'string' ? image : image.url);
+                    }}
                   />
                 </motion.div>
               ))}
@@ -230,6 +263,59 @@ function Projects() {
           </motion.div>
         ))}
       </motion.div>
+
+     {/* Lightbox Modal */}
+<AnimatePresence>
+  {selectedImage && (
+    <motion.div
+      // 1. Ensure the backdrop covers the full viewport and uses flex center
+      className="fixed inset-0 bg-black/95 z-[100] flex items-center justify-center p-4 md:p-8"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onClick={() => setSelectedImage(null)}
+    >
+      <motion.div
+        // 2. Remove "w-full" if you want it to wrap the image, 
+        // or keep it with max-width for architectural consistency.
+        className="relative max-w-5xl w-full flex items-center justify-center"
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.9, opacity: 0 }}
+        transition={{ type: "spring", damping: 25, stiffness: 300 }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        
+        {/* Navigation - Styled with your Teal #34717F for precision */}
+        <button
+          className="absolute left-[-2rem] md:left-[-4rem] top-1/2 -translate-y-1/2 text-white/50 hover:text-[#34717F] transition-colors hidden sm:block"
+          onClick={(e) => { /* Previous Logic */ }}
+        >
+          {/* <ChevronLeft size={48} strokeWidth={1} /> */}
+        </button>
+
+        <div className="relative border border-white/10 bg-white/5 p-1 backdrop-blur-sm rounded-sm">
+          <img
+            src={selectedImage}
+            alt="Project Detail"
+            className="max-h-[80vh] w-auto object-contain shadow-2xl"
+            onContextMenu={(e) => e.preventDefault()}
+          />
+        </div>
+
+        <button
+          className="absolute right-[-2rem] md:right-[-4rem] top-1/2 -translate-y-1/2 text-white/50 hover:text-[#34717F] transition-colors hidden sm:block"
+          onClick={(e) => { /* Next Logic */ }}
+        >
+          {/* <ChevronRight size={48} strokeWidth={1} /> */}
+        </button>
+
+      </motion.div>
+    </motion.div>
+  )}
+</AnimatePresence>
+
+
     </section>
   );
 }

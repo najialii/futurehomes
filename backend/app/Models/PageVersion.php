@@ -29,9 +29,7 @@ class PageVersion extends Model
         return $this->belongsTo(Page::class);
     }
 
-    /**
-     * Get the differences between this version and the previous one
-     */
+    
     public function getDifferences(): array
     {
         $previousVersion = static::where('page_id', $this->page_id)

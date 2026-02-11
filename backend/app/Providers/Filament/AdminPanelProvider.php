@@ -29,6 +29,9 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->brandName('Future Homes CMS')
+            ->brandLogo(asset('white.svg'))
+            ->brandLogoHeight('3rem')
+            ->favicon(asset('white.svg'))
             ->colors([
                 'primary' => '#4bb7c3',
             ])

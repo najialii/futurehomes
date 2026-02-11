@@ -21,17 +21,13 @@ class Stat extends Model
         'is_active' => 'boolean',
     ];
 
-    /**
-     * Scope to get only active stats
-     */
+    
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
     }
 
-    /**
-     * Scope to get stats ordered by display_order
-     */
+    
     public function scopeOrdered($query)
     {
         return $query->orderBy('display_order');

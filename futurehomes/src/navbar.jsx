@@ -19,7 +19,6 @@ function Navbar() {
     { to: "/contact", label: "تواصل معنا" },
   ];
 
-  // Logic to handle scroll-based transparency and show/hide
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -40,7 +39,6 @@ function Navbar() {
 
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
 
-  // Define the base and conditional class names
   const navClass = `fixed top-0 left-0 w-full z-50 transition-colors duration-300 ${
     isScrolled ? "bg-gray-800 text-gray-300 shadow-md" : "bg-transparent text-white"
   }`;
@@ -60,7 +58,6 @@ function Navbar() {
         >
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:p-4">
             <div className="relative flex h-16 items-center justify-between">
-              {/* Mobile menu button */}
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 <button
                   onClick={toggleMenu}
@@ -70,15 +67,12 @@ function Navbar() {
                 </button>
               </div>
 
-              {/* Logo + Desktop Nav */}
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <Link to="/" className="flex shrink-0 items-center">
-                  {/* The logo should also change color for visibility */}
                   <img src={logo} alt="Future Homes" className={`h-24 w-auto transition-opacity duration-300 ${isScrolled ? "opacity-100" : "opacity-90"}`} />
                 </Link>
               </div>
 
-              {/* Right Section: Desktop Nav */}
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4 space-x-reverse">
@@ -100,7 +94,6 @@ function Navbar() {
             </div>
           </div>
 
-          {/* Mobile Menu */}
           <AnimatePresence>
             {isMenuOpen && (
               <motion.div

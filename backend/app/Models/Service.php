@@ -39,17 +39,13 @@ class Service extends Model implements HasMedia
         return $query->orderBy('display_order');
     }
 
-    /**
-     * Get the count of published projects for this service
-     */
+    
     public function getPublishedProjectsCountAttribute(): int
     {
         return $this->projects()->where('status', 'published')->count();
     }
 
-    /**
-     * Get the count of all projects for this service
-     */
+    
     public function getAllProjectsCountAttribute(): int
     {
         return $this->projects()->count();

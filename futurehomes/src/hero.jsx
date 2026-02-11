@@ -1,7 +1,41 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import ApiService from "./services/api";
 
 function Hero() {
+  const [heroData, setHeroData] = useState({
+    title: "نضع خبرة تزيد عن 15 عاماً بين يديك",
+    subtitle: "من التصميم إلى التشطيب، ننفذ مشاريعك باحترافية تامة.",
+    video_url: "/Promo (1).mp4",
+    button_text: "اكتشف مشاريعنا",
+    button_link: "#projects"
+  });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchHeroData = async () => {
+      try {
+        const data = await ApiService.getHero();
+        setHeroData(data);
+      } catch (error) {
+        console.log('Using default hero data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchHeroData();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="relative h-screen flex items-center justify-center bg-gray-900">
+        <div className="text-white text-xl">Loading...</div>
+      </section>
+    );
+  }
+
   return (
     <section
       id="home"
@@ -9,7 +43,7 @@ function Hero() {
     >
       <video
         className="absolute inset-0 w-full h-full object-cover z-0"
-        src={"/Promo (1).mp4"} 
+        src={heroData.video_url} 
         autoPlay
         loop
         muted
@@ -25,20 +59,21 @@ function Hero() {
         className="text-center px-6 relative z-20 max-w-4xl"
       >
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mb-6">
-          <span className="block mt-2">نضع خبرة تزيد عن 15 عاماً بين يديك</span>
+          <span className="block mt-2">{heroData.title}</span>
         </h1>
         <p className="text-lg md:text-xl mb-8 font-light">
-          من التصميم إلى التشطيب، ننفذ مشاريعك باحترافية تامة.
+          {heroData.subtitle}
         </p>
   
-        <motion.a
-          whileHover={{ scale: 1.05, backgroundColor: "#E5E7EB" }}
-          whileTap={{ scale: 0.95 }}
-          href="#projects"
-          className="inline-block px-8 py-3 bg-gradient-to-r from-future to-gray-900 text-white font-semibold rounded-full shadow-md hover:shadow-xl transition-all transform hover:scale-105"
+        <Link to="/projects">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-block px-8 py-3 bg-gradient-to-r from-future to-gray-900 text-white font-semibold rounded-full shadow-md hover:shadow-xl transition-all transform hover:scale-105 cursor-pointer"
           >
-          اكتشف مشاريعنا
-        </motion.a>
+            {heroData.button_text}
+          </motion.button>
+        </Link>
       </motion.div>
     </section>
   );

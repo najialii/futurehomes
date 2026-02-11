@@ -9,18 +9,15 @@ use Illuminate\Http\Request;
 
 class PartnerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
     public function index(Request $request)
     {
         $query = Partner::query();
 
-        // Filter by active status
         if ($request->has('active')) {
             $query->where('is_active', $request->boolean('active'));
         } else {
-            // Default to active partners only for public API
+
             $query->where('is_active', true);
         }
 
@@ -29,9 +26,7 @@ class PartnerController extends Controller
         return PartnerResource::collection($partners);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -46,17 +41,13 @@ class PartnerController extends Controller
         return new PartnerResource($partner);
     }
 
-    /**
-     * Display the specified resource.
-     */
+    
     public function show(Partner $partner)
     {
         return new PartnerResource($partner);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    
     public function update(Request $request, Partner $partner)
     {
         $validated = $request->validate([
@@ -71,9 +62,7 @@ class PartnerController extends Controller
         return new PartnerResource($partner);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    
     public function destroy(Partner $partner)
     {
         $partner->delete();

@@ -17,10 +17,29 @@ class Page extends Model
         'content',
         'meta_description',
         'is_published',
+        'hero_title',
+        'hero_subtitle',
+        'hero_video_url',
+        'hero_button_text',
+        'hero_button_link',
+        'has_hero',
+        'contact_phone',
+        'contact_email',
+        'contact_address',
+        'contact_instagram',
+        'contact_whatsapp',
+        'contact_tiktok',
+        'contact_youtube',
+        'contact_map_embed',
+        'contact_button_text',
+        'contact_button_link',
+        'is_contact_page',
     ];
 
     protected $casts = [
         'is_published' => 'boolean',
+        'has_hero' => 'boolean',
+        'is_contact_page' => 'boolean',
     ];
 
     protected static function booted()
@@ -58,9 +77,7 @@ class Page extends Model
         return 'slug';
     }
 
-    /**
-     * Create a new version of this page
-     */
+    
     public function createVersion(): void
     {
         $nextVersionNumber = $this->versions()->max('version_number') + 1;
@@ -74,9 +91,7 @@ class Page extends Model
         ]);
     }
 
-    /**
-     * Restore to a specific version
-     */
+    
     public function restoreToVersion(int $versionNumber): bool
     {
         $version = $this->versions()->where('version_number', $versionNumber)->first();
@@ -94,17 +109,13 @@ class Page extends Model
         return true;
     }
 
-    /**
-     * Get the current version number
-     */
+    
     public function getCurrentVersionNumber(): int
     {
         return $this->versions()->max('version_number') ?? 0;
     }
 
-    /**
-     * Get version history with differences
-     */
+    
     public function getVersionHistory(): array
     {
         return $this->versions()->get()->map(function ($version) {
@@ -116,5 +127,19 @@ class Page extends Model
                 'differences' => $version->getDifferences(),
             ];
         })->toArray();
+    }
+
+    
+    public function getHeroVideoUrlAttribute($value)
+    {
+        if (!$value) {
+            return null;
+        }
+
+        if (str_starts_with($value, 'http') || str_starts_with($value, '/')) {
+            return $value;
+        }
+
+        return asset('storage/' . $value);
     }
 }

@@ -12,9 +12,7 @@ use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
-    /**
-     * Login user and create token
-     */
+    
     public function login(Request $request)
     {
         $request->validate([
@@ -44,9 +42,7 @@ class AuthController extends Controller
         ]);
     }
 
-    /**
-     * Register a new user
-     */
+    
     public function register(Request $request)
     {
         $request->validate([
@@ -61,7 +57,6 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        // Assign default viewer role to new users
         $user->assignRole('viewer');
 
         $token = $user->createToken('api-token')->plainTextToken;
@@ -79,9 +74,7 @@ class AuthController extends Controller
         ], 201);
     }
 
-    /**
-     * Logout user (revoke token)
-     */
+    
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
@@ -91,9 +84,7 @@ class AuthController extends Controller
         ]);
     }
 
-    /**
-     * Get current user information
-     */
+    
     public function me(Request $request)
     {
         $user = $request->user();
@@ -111,17 +102,13 @@ class AuthController extends Controller
         ]);
     }
 
-    /**
-     * Refresh user token
-     */
+    
     public function refresh(Request $request)
     {
         $user = $request->user();
         
-        // Revoke current token
         $request->user()->currentAccessToken()->delete();
         
-        // Create new token
         $token = $user->createToken('api-token')->plainTextToken;
 
         return response()->json([

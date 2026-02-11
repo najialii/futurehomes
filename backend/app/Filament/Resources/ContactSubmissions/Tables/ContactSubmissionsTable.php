@@ -50,7 +50,7 @@ class ContactSubmissionsTable
                     ->sortable(),
             ])
             ->filters([
-                //
+
             ])
             ->recordActions([
                 EditAction::make(),

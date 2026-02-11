@@ -1,9 +1,10 @@
+
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import ApiService from "./services/api";
 
-// Animation variants
+
 const containerVariants = {
   hidden: { opacity: 0, y: 50 },
   visible: {
@@ -21,7 +22,6 @@ const itemVariants = {
   visible: { opacity: 1, y: 0 },
 };
 
-// Default icons for services
 const getServiceIcon = (title) => {
   const icons = {
     'التصميم': (
@@ -79,7 +79,7 @@ const ServiceCard = ({ service, onServiceClick }) => (
   </motion.div>
 );
 
-function Services() {
+function Services({ showHero = true }) {
   const navigate = useNavigate();
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -131,11 +131,20 @@ function Services() {
 
   if (loading) {
     return (
-      <section id="services" className="bg-white py-16 font-elmassri" dir="rtl">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className={showHero ? "bg-gray-100 font-elmassri" : "bg-white font-elmassri"} dir="rtl">
+        {showHero && (
+          <div className="relative h-[50vh] flex items-center justify-center bg-gray-900 text-white">
+            <div className="absolute inset-0 bg-cover bg-center opacity-40"></div>
+            <div className="relative text-center px-4">
+              <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold leading-tight">خدماتنا</h1>
+            </div>
+          </div>
+        )}
+        <section id="services" className={showHero ? "bg-white py-16" : "bg-white py-16"}>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">خدماتنا</h2>
-            <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">جاري التحميل...</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">{showHero ? 'ما نقدمه' : 'خدماتنا'}</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">جاري التحميل...</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[1, 2, 3, 4].map((i) => (
@@ -152,14 +161,39 @@ function Services() {
           </div>
         </div>
       </section>
+      </div>
     );
   }
 
   return (
-    <section id="services" className="bg-white py-16 font-elmassri" dir="rtl">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className={showHero ? "bg-gray-100 font-elmassri" : "bg-white font-elmassri"} dir="rtl">
+      {showHero && (
+        <div className="relative h-[50vh] flex items-center justify-center bg-gray-900 text-white">
+          <div className="absolute inset-0 bg-cover bg-center opacity-40"></div>
+          <div className="relative text-center px-4">
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-3xl sm:text-5xl md:text-6xl font-bold leading-tight"
+            >
+              خدماتنا
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-xl md:text-2xl mt-4"
+            >
+              نقدم مجموعة متكاملة من الحلول الهندسية والمعمارية
+            </motion.p>
+          </div>
+        </div>
+      )}
+
+      <section id="services" className={showHero ? "bg-white py-16" : "bg-white py-16"}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
         <motion.div
           className="text-center mb-16"
           initial="hidden"
@@ -169,26 +203,24 @@ function Services() {
         >
           <motion.h2
             variants={itemVariants}
-            className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4"
+            className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4"
           >
-            خدماتنا
+            {showHero ? 'ما نقدمه' : 'خدماتنا'}
           </motion.h2>
           <motion.p
             variants={itemVariants}
-            className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto"
+            className="text-lg text-gray-600 max-w-2xl mx-auto"
           >
-            نقدم مجموعة متكاملة من الحلول الهندسية والمعمارية لتنفيذ مشاريعكم بأعلى مستويات الجودة والاحترافية.
+            {showHero ? 'حلول متكاملة لتنفيذ مشاريعكم بأعلى مستويات الجودة والاحترافية' : 'نقدم مجموعة متكاملة من الحلول الهندسية والمعمارية لتنفيذ مشاريعكم بأعلى مستويات الجودة والاحترافية'}
           </motion.p>
         </motion.div>
 
-        {/* Error Message */}
         {error && (
           <div className="text-center mb-8">
             <p className="text-red-600">{error}</p>
           </div>
         )}
 
-        {/* Services Grid */}
         <motion.div
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
           initial="hidden"
@@ -206,6 +238,7 @@ function Services() {
         </motion.div>
       </div>
     </section>
+    </div>
   );
 }
 

@@ -46,9 +46,7 @@ class Testimonial extends Model implements HasMedia
         return $this->client_photo_path ? asset('storage/' . $this->client_photo_path) : null;
     }
 
-    /**
-     * Get validation rules for testimonial data
-     */
+    
     public static function getValidationRules(): array
     {
         return [
@@ -59,9 +57,7 @@ class Testimonial extends Model implements HasMedia
         ];
     }
 
-    /**
-     * Sanitize input before saving
-     */
+    
     protected static function boot()
     {
         parent::boot();

@@ -25,49 +25,37 @@ class AuditLog extends Model
         'new_values' => 'array',
     ];
 
-    /**
-     * Get the auditable model.
-     */
+    
     public function auditable(): MorphTo
     {
         return $this->morphTo();
     }
 
-    /**
-     * Get the user who performed the action.
-     */
+    
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * Scope to filter by event type
-     */
+    
     public function scopeEvent($query, string $event)
     {
         return $query->where('event', $event);
     }
 
-    /**
-     * Scope to filter by model type
-     */
+    
     public function scopeForModel($query, string $modelType)
     {
         return $query->where('auditable_type', $modelType);
     }
 
-    /**
-     * Scope to filter by user
-     */
+    
     public function scopeByUser($query, int $userId)
     {
         return $query->where('user_id', $userId);
     }
 
-    /**
-     * Scope to get recent logs
-     */
+    
     public function scopeRecent($query, int $days = 30)
     {
         return $query->where('created_at', '>=', now()->subDays($days));

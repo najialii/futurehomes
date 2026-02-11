@@ -13,33 +13,25 @@ class Role extends Model
         'description',
     ];
 
-    /**
-     * The users that belong to the role.
-     */
+    
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
     }
 
-    /**
-     * The permissions that belong to the role.
-     */
+    
     public function permissions(): BelongsToMany
     {
         return $this->belongsToMany(Permission::class);
     }
 
-    /**
-     * Check if role has a specific permission.
-     */
+    
     public function hasPermission(string $permission): bool
     {
         return $this->permissions()->where('name', $permission)->exists();
     }
 
-    /**
-     * Give permission to role.
-     */
+    
     public function givePermissionTo(Permission|string $permission): self
     {
         if (is_string($permission)) {
@@ -51,9 +43,7 @@ class Role extends Model
         return $this;
     }
 
-    /**
-     * Revoke permission from role.
-     */
+    
     public function revokePermissionTo(Permission|string $permission): self
     {
         if (is_string($permission)) {

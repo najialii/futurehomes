@@ -14,10 +14,12 @@ class Project extends Model
         'service_id',
         'status',
         'display_order',
+        'is_featured',
     ];
 
     protected $casts = [
         'status' => 'string',
+        'is_featured' => 'boolean',
     ];
 
     public function service(): BelongsTo
@@ -38,5 +40,10 @@ class Project extends Model
     public function scopeOrdered($query)
     {
         return $query->orderBy('display_order');
+    }
+
+    public function scopeFeatured($query)
+    {
+        return $query->where('is_featured', true);
     }
 }
