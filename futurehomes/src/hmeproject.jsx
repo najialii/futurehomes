@@ -85,11 +85,13 @@ function HomeProjectsSection() {
               variants={cardVariants}
               className="relative rounded-xl overflow-hidden shadow-lg group cursor-pointer hover:shadow-2xl transition-shadow duration-300"
             >
-              <img
-                src={project.images && project.images[0] ? project.images[0].image_url : '/placeholder.jpg'}
-                alt={project.images && project.images[0] ? project.images[0].alt_text : project.name}
-                className="w-full h-64 sm:h-56 md:h-48 lg:h-56 object-cover transition-transform duration-500 group-hover:scale-105"
-              />
+              <div className="watermarked-image">
+                <img
+                  src={project.images && project.images[0] ? project.images[0].image_url : '/placeholder.jpg'}
+                  alt={project.images && project.images[0] ? project.images[0].alt_text : project.name}
+                  className="w-full h-64 sm:h-56 md:h-48 lg:h-56 object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-black/10 opacity-90 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
                 <div className="text-right w-full">
                   <h4 className="text-white text-lg font-bold">{project.name}</h4>

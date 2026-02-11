@@ -75,18 +75,6 @@ const ImageLoader = ({ src, alt, onClick }) => {
         loading="lazy"
         draggable="false"
       />
-      
-      {/* Watermark overlay */}
-      {imageLoaded && (
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <img 
-            src="/white.svg" 
-            alt="watermark" 
-            className="w-1/3 h-1/3 object-contain opacity-30"
-            draggable="false"
-          />
-        </div>
-      )}
     </div>
   );
 };
@@ -168,13 +156,11 @@ function Projects() {
   if (loading) {
     return (
       <section id="projects" className="bg-white" dir="rtl">
-        {/* Header Section */}
         <div className="bg-gray-900 py-32 text-center px-4">
           <h1 className="text-3xl md:text-4xl font-bold text-white">مشاريعنا السابقة</h1>
           <p className="text-gray-300 mt-2 max-w-2xl mx-auto text-lg">جاري التحميل...</p>
         </div>
 
-        {/* Loading Projects */}
         <div className="max-w-7xl mx-auto px-4 py-12">
           {[1, 2, 3].map((i) => (
             <div key={i} className="p-6 rounded-2xl mb-12">
@@ -194,7 +180,7 @@ function Projects() {
 
   return (
     <section id="projects" className="bg-white" dir="rtl">
-      {/* Header Section */}
+
       <div className="bg-gray-900 py-32 text-center px-4">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
@@ -214,14 +200,12 @@ function Projects() {
         </motion.p>
       </div>
 
-      {/* Error Message */}
       {error && (
         <div className="text-center py-8">
           <p className="text-red-600">{error}</p>
         </div>
       )}
 
-      {/* Projects */}
       <motion.div
         className="max-w-7xl mx-auto px-4 grid grid-cols-1 gap-12 py-12"
         initial="hidden"
@@ -240,7 +224,6 @@ function Projects() {
             </h3>
             <p className="text-gray-600 mb-6">{project.description}</p>
 
-            {/* Image Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
               {project.images.map((image, i) => (
                 <motion.div
@@ -286,7 +269,7 @@ function Projects() {
         onClick={(e) => e.stopPropagation()}
       >
         
-        {/* Navigation - Styled with your Teal #34717F for precision */}
+
         <button
           className="absolute left-[-2rem] md:left-[-4rem] top-1/2 -translate-y-1/2 text-white/50 hover:text-[#34717F] transition-colors hidden sm:block"
           onClick={(e) => { /* Previous Logic */ }}
@@ -294,7 +277,7 @@ function Projects() {
           {/* <ChevronLeft size={48} strokeWidth={1} /> */}
         </button>
 
-        <div className="relative border border-white/10 bg-white/5 p-1 backdrop-blur-sm rounded-sm">
+        <div className="relative border border-white/10 bg-white/5 p-1 backdrop-blur-sm rounded-sm watermarked-image">
           <img
             src={selectedImage}
             alt="Project Detail"

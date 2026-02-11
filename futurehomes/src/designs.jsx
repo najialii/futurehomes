@@ -66,18 +66,6 @@ const ImageLoader = ({ src, alt, onClick }) => {
         loading="lazy"
         draggable="false"
       />
-      
-      {/* Watermark overlay */}
-      {imageLoaded && (
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <img 
-            src="/white.svg" 
-            alt="watermark" 
-            className="w-1/3 h-1/3 object-contain opacity-30"
-            draggable="false"
-          />
-        </div>
-      )}
     </div>
   );
 };
@@ -314,16 +302,6 @@ function Designs() {
                   onDragStart={(e) => e.preventDefault()}
                   draggable="false"
                 />
-                
-                {/* Watermark overlay for lightbox */}
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-5">
-                  <img 
-                    src="/white.svg" 
-                    alt="watermark" 
-                    className="w-1/4 h-1/4 object-contain opacity-40"
-                    draggable="false"
-                  />
-                </div>
                 
                 {/* Close button */}
                 <button
